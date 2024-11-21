@@ -1,0 +1,325 @@
+body {
+  background: url('assets/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font-family: "Roboto", sans-serif;
+}
+
+.quiz-container {
+  font-family: "Roboto", sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+  display: none;
+  background: linear-gradient(90deg, #1B2831 -18.11%, #0B1016 81.89%);
+  border-radius: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.quiz-container h1 {
+  display: none;
+}
+
+.quiz-container .timer {
+  font-weight: bold;
+  color: white;
+  text-align: right;
+}
+
+.timer.danger {
+  color: red;
+}
+
+.quiz-container h2.question {
+  font-size: 20px;
+  background: #d0ecff;
+  padding: 16px;
+  border-radius: 8px;
+  font-weight: normal;
+  line-height: 1.6;
+}
+
+.quiz-container .options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.quiz-container .option {
+  border: none;
+  padding: 24px 32px;
+  font-size: 18px;
+  background: #3d6fb5;
+  color: #fff;
+}
+
+.quiz-container button {
+  cursor: pointer;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.option.correct {
+  background: #51e351;
+  color: #222;
+}
+
+.option.incorrect {
+  background: #e63946;
+}
+
+.option.selected {
+  background: #20395c;
+  color: #fff;
+}
+
+.quiz-container .next-btn,
+.quiz-result .restart-btn {
+  background: #e63946;
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 3px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.quiz-result {
+  display: none;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: "Roboto", sans-serif;
+  padding: 16px;
+  background: linear-gradient(90deg, #1B2831 -18.11%, #0B1016 81.89%);
+  border-radius: 8px;
+  text-align: center; /* Center the text */
+}
+
+.quiz-result h2 {
+  font-size: 28px; /* Increase font size */
+  font-weight: bold; /* Make it bold */
+  margin-bottom: 16px; /* Add some margin */
+}
+
+.quiz-result .question-container {
+  padding: 12px;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left; /* Keep question container text left-aligned */
+  cursor: pointer; /* Add cursor pointer for accordion */
+}
+
+.quiz-result .question-container .explanation {
+  display: none; /* Hide explanation initially */
+  padding-top: 10px;
+}
+
+.quiz-result .question-container.active .explanation {
+  display: block; /* Show explanation when active */
+}
+
+/* Add new class for almost correct answers */
+.quiz-result .question-container.almost-correct {
+  background: #f4a261; /* yellow color */
+  color: #222;
+}
+
+.quiz-result .question-container.correct {
+  background: #51e351;
+  color: #222;
+}
+
+.quiz-result .question-container.incorrect {
+  background: #e63946; /* red color */
+  color: #fff;
+}
+
+.quiz-result .survival-message {
+  display: block; /* Ensure the survival message is displayed */
+  font-size: 45px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.question-number {
+  font-size: 16px;
+  margin-right: 16px;
+  background: #2f5892;
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+  .quiz-container .options {
+    grid-template-columns: 1fr;
+  }
+}
+
+.start-btn-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: white;
+  height: 200px;
+  width: 660px;
+  transform: translate(-50%, -50%);
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(90deg, #1B2831 -18.11%, #0B1016 81.89%);
+  padding: 20px;
+  padding-top: 40px;
+  border-radius: 8px;
+}
+
+.start-btn-container h2 {
+  font-size: 40px;
+  text-align: center;
+  font-family: "Alumni Sans", sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+.start-btn-container .start-btn {
+  background: #e63946;
+  color: #fff;
+  padding: 8px 32px;
+  border-radius: 8px;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.accordion .question-container {
+  padding: 12px;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  cursor: pointer;
+  position: relative; /* Add this line */
+}
+
+.accordion .question-container::after {
+  content: "▼"; /* Down arrow */
+  font-size: 16px;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+}
+
+.accordion .question-container.active::after {
+  transform: translateY(-50%) rotate(180deg); /* Rotate arrow when active */
+}
+
+.accordion .question-container .explanation {
+  display: none;
+  padding-top: 10px;
+}
+
+.accordion .question-container.active .explanation {
+  display: block;
+}
+
+.accordion .question-container .user-answer,
+.accordion .question-container .correct-answer,
+.accordion .question-container .explanation {
+  display: none; /* Hide these elements initially */
+}
+
+.accordion .question-container.active .user-answer,
+.accordion .question-container.active .correct-answer,
+.accordion .question-container.active .explanation {
+  display: block; /* Show these elements when active */
+}
+
+@media (max-width: 700px) {
+  .quiz-container {
+    width: 90%;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    padding: 8px;
+  }
+
+  .quiz-container .options {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-container .option {
+    padding: 16px;
+    font-size: 16px;
+  }
+
+  .quiz-container .timer {
+    font-size: 14px;
+  }
+
+  .quiz-container h2.question {
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  .quiz-container .next-btn {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+
+  .quiz-result {
+    width: 90%;
+    padding: 8px;
+  }
+
+  .quiz-result h2 {
+    font-size: 24px;
+  }
+
+  .quiz-result .question-container {
+    padding: 8px;
+  }
+
+  .quiz-result .survival-message {
+    font-size: 24px;
+  }
+
+  .start-btn-container {
+    width: 90%;
+    height: auto;
+    padding: 16px;
+    padding-top: 32px;
+  }
+
+  .start-btn-container h2 {
+    font-size: 32px;
+  }
+
+  .start-btn-container .start-btn {
+    font-size: 20px;
+    padding: 8px 24px;
+  }
+}
